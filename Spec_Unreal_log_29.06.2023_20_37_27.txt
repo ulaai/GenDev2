@@ -1,0 +1,1 @@
+<queue:false, safetyCover:true, paper:false, noPages:1, status:IDLE, hasPaper:false, pageCounter:0, Zn:0>

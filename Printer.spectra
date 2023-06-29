@@ -1,0 +1,30 @@
+// test dump 
+spec Printer
+
+env boolean queue;
+env boolean safetyCover;
+env boolean paper;
+//type Command = {PRINT, PAUSE, CANCEL};
+//env Command command;
+
+//sys Status status;
+//type Status = {IDLE, PRINTING, COMPLETE, ERROR};
+sys boolean hasPaper;
+
+asm ini queue=false;
+//asm ini command=PRINT;
+asm ini safetyCover=true;
+asm ini paper=true;
+
+gar alw paper -> hasPaper=true;
+gar alw paper=false -> queue=true; 
+
+//gar alw command=PRINT -> status=PRINTING;
+//gar alw safetyCover=false -> status=ERROR;
+
+//gar alw hasPaper=false -> status=ERROR;
+//gar alw !(queue=false & status=COMPLETE);
+//gar alw (hasPaper=true & command=PRINT) -> status=PRINTING;
+//gar alwEv status=PRINTING;
+//gar alwEv status=COMPLETE;
+//gar alwEv queue=false;

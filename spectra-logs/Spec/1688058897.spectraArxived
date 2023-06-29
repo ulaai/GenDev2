@@ -1,0 +1,9 @@
+spec Spec
+
+env boolean stat;
+env boolean eOff;
+sys boolean go;
+asm alw (eOff -> stat); -- emergency stop only at stations
+gar ini !go;-- initial stop
+gar alw (eOff -> !go); -- emergency stop
+gar alwEv (go); -- always eventually move around

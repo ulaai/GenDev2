@@ -10,6 +10,7 @@ env Int(1..2) noPages;
 sys Status status;
 type Status = {IDLE, PRINTING, COMPLETE, ERROR};
 sys boolean hasPaper;
+sys boolean isSafe;
 sys Int(0..2) pageCounter;
 
 asm ini queue=false;
@@ -23,6 +24,7 @@ gar (hasPaper & queue) -> status=PRINTING;
 gar (pageCounter = noPages) -> !(paper & queue) & status=COMPLETE;
 gar !safetyCover -> status=ERROR;
 gar alw paper -> hasPaper;
+gar alw safetyCover -> isSafe;
 gar alw !(safetyCover=false & status=PRINTING);
 gar alw (status=PRINTING -> next(pageCounter)=pageCounter+1);
 
