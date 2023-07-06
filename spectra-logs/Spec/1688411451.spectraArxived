@@ -1,0 +1,25 @@
+import "DwyerPatterns.spectra"
+ 
+spec Spec
+
+env boolean queue;
+env boolean safetyCover;
+env boolean paper;
+
+sys boolean idle;
+sys boolean printing;
+sys boolean error;
+sys boolean hasPaper;
+
+asm ini queue=false;
+asm ini safetyCover=true;
+asm ini paper=true;
+
+
+gar idle;
+gar hasPaper & !queue -> idle; 
+gar !safetyCover -> error;
+gar alw paper -> hasPaper;
+gar alw !(safetyCover=false & printing=true);
+
+gar alwEv printing;

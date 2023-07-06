@@ -1,0 +1,34 @@
+import "DwyerPatterns.spectra"
+ 
+spec Spec
+
+env boolean queue;
+env boolean safetyCover;
+env boolean paper;
+env Int(1..2) noPages;
+
+sys boolean idle;
+sys boolean printing;
+sys boolean error;
+sys boolean complete;
+sys boolean hasPaper;
+sys Int(0..2) pageCounter;
+
+asm ini queue=false;
+asm ini safetyCover=true;
+asm ini paper=true;
+asm alwEv queue=true;
+
+
+gar idle & pageCounter = 0;
+gar alw paper -> hasPaper;
+gar alw !safetyCover -> error;
+gar alw hasPaper & !queue -> idle; 
+gar alw !queue -> idle;
+gar alw !(safetyCover=false & printing);
+gar alw !(paper=false & printing);
+gar alw (printing -> next(pageCounter)=pageCounter+1);
+gar alw (pageCounter = noPages) -> complete;
+
+//gar alwEv pageCounter = noPages;
+//gar alwEv complete;

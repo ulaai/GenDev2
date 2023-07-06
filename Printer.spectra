@@ -1,4 +1,3 @@
-// test dump 
 spec Printer
 
 env boolean queue;
