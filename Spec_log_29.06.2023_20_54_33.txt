@@ -1,2 +1,0 @@
-<queue:false, safetyCover:true, paper:true, noPages:1, status:IDLE, hasPaper:true, isSafe:true, pageCounter:0, Zn:0>
-<queue:false, safetyCover:false, paper:false, noPages:1, status:ERROR, hasPaper:false, isSafe:false, pageCounter:1, Zn:0>

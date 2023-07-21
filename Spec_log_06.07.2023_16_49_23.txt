@@ -1,0 +1,1 @@
+<queue:true, paper:true, noPages:1, status:PRINTING, hasPaper:true, pageCounter:0, Zn:0>

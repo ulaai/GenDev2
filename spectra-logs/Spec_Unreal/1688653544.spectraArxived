@@ -1,0 +1,28 @@
+import "DwyerPatterns.spectra"
+ 
+spec Spec_Unreal
+
+env boolean queue;
+env boolean paper;
+env Int(1..2) noPages;
+
+sys Status status;
+type Status = {IDLE, PRINTING, COMPLETE};
+sys boolean hasPaper;
+sys Int(0..2) pageCounter;
+
+asm ini queue=false;
+asm ini paper=true;
+//fix
+//asm alwEv queue=true;
+
+gar status=IDLE & pageCounter=0;
+gar hasPaper & !queue -> status=IDLE; 
+gar alw paper -> hasPaper;
+gar alw !(paper=false & status=PRINTING);
+gar alw (status=PRINTING -> next(pageCounter)=pageCounter+1);
+gar alw !queue -> status=IDLE;
+gar alw (pageCounter = noPages) -> status=COMPLETE & next(pageCounter)=0;
+
+gar alwEv pageCounter = noPages;
+gar alwEv status=COMPLETE;

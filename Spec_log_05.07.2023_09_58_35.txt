@@ -1,3 +1,0 @@
-<queue:false, safetyCover:true, paper:true, idle:true, printing:false, error:false, hasPaper:true, Zn:0>
-<queue:true, safetyCover:true, paper:true, idle:false, printing:true, error:false, hasPaper:true, Zn:0>
-<queue:false, safetyCover:false, paper:false, idle:false, printing:false, error:true, hasPaper:false, Zn:0>

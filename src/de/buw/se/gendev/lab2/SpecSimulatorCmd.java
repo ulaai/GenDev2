@@ -23,23 +23,25 @@ public class SpecSimulatorCmd {
 			inputs.clear();
 
 			// TODO read inputs here
-			System.out.println("Is the document already sent to the queue? (Y/n)");
+			System.out.println("Is the document already sent to the queue? (Y/n) [Y]");
 			String line = in.nextLine(); 
 			// TODO send inputs to controller
 			boolean queue = !"n".equals(line);
 			
-			System.out.println("Is the safety cover closed? (Y/n)");
-			line = in.nextLine(); 
-			boolean safetyCover = !"n".equals(line);
-
-			System.out.println("Make sure there is a paper (Y/n)");
+			System.out.println("Make sure there is a paper (Y/n) [Y]");
 			line = in.nextLine(); 
 			boolean paper = !"n".equals(line);
 
+			System.out.println("How many paper? Press 1 or 2 [1]");
+			line = in.nextLine(); 
+			Integer noPages = Integer.parseInt(line);
+
 			// send inputs to controller
 			inputs.put("queue", Boolean.toString(queue));
-			inputs.put("safetyCover", Boolean.toString(safetyCover));
 			inputs.put("paper", Boolean.toString(paper));
+			inputs.put("noPages", Integer.toString(noPages));
+//			System.out.println(inputs);
+
 			// execute controller
 			if (iniState) {
 				executor.initState(inputs);
@@ -49,12 +51,16 @@ public class SpecSimulatorCmd {
 			}
 
 			// TODO read outputs and decide how to proceed
-			boolean hasPaper = Boolean.parseBoolean(executor.getCurrValue("hasPaper"));
-			if (hasPaper) {
-				System.out.println("It has paper");
+			String status = executor.getCurrValue("status");
+			System.out.println("Status: "+ status);
+			if (status.equals("PRINTING")) {
+				System.out.println("Your document is being printed.");
+			}
+			else if (status.equals("COMPLETE")) {
+				System.out.println("Your document has finished printing. You can start another print job.");
 			}
 			else {
-				System.out.println("No paper");
+				System.out.println("Please check and make sure you have sent a printing job and loaded paper into the printer.");
 			}
 		}
 	}

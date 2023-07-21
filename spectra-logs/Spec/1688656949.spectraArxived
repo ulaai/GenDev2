@@ -1,0 +1,27 @@
+import "DwyerPatterns.spectra"
+ 
+spec Spec
+
+env boolean queue;
+env boolean paper;
+env Int(1..2) noPages;
+
+sys Status status;
+type Status = {IDLE, PRINTING, COMPLETE};
+sys boolean hasPaper;
+sys Int(0..2) pageCounter;
+
+asm ini queue=true;
+asm ini paper=true;
+asm ini noPages=1;
+
+gar pageCounter=0;
+gar alw paper -> hasPaper;
+gar alw !((queue=false or hasPaper=false)& status=PRINTING);
+gar alw (status=PRINTING -> next(pageCounter)=pageCounter+1);
+gar alw ((queue=true & hasPaper=true)& pageCounter = noPages) -> status=COMPLETE;
+gar alw status=COMPLETE -> next(pageCounter)=0;
+
+gar alwEv pageCounter = noPages;
+gar alwEv status=COMPLETE;
+
